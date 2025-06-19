@@ -19,9 +19,21 @@ const Header = (props: Props) => {
 
             <ul className='flex flex-row items-center gap-8'>
                 <li>
-                    <Link href="/library"
-                        className={cn('text-black cursor-pointer capitalize', pathName === "/library" ? "text-slate-800" : null)}>
-                        Library
+                    <Link href="/"
+                        className={cn('text-slate-100 cursor-pointer capitalize', pathName === "/" ? "text-blue-400" : null)}>
+                        Home
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/search"
+                        className={cn('text-slate-100 cursor-pointer capitalize', pathName === "/library" ? "text-blue-400" : null)}>
+                        Search
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/login"
+                        className={cn('text-slate-100 cursor-pointer capitalize', pathName === ("/library") ? "text-blue-400" : null)}>
+                        Login
                     </Link>
                 </li>
             </ul>

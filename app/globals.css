@@ -127,6 +127,6 @@
   }
 
   .root-container {
-    @apply flex min-h-screen flex-1 flex-col bg-cover bg-top px-5 sm:px-10 md:px-16;
+    @apply flex min-h-screen flex-1 flex-col text-slate-100 bg-[url(/images/pattern.webp)] bg-cover bg-top px-5 sm:px-10 md:px-16;
   }
 }

@@ -16,6 +16,7 @@ const BookList = ({ title, books }: Props) => {
           books.map(book =>
             <BookItem
               key={book.id}
+              id={book.id}
               coverUrl={book.cover}
               title={book.title}
               genre={book.genre} />

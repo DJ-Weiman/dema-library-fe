@@ -12,7 +12,7 @@ type Props = {
 
 function ProfileCard({username, email, registeredDate, pastBorrowCount, currentBorrowCount, remainingBorrowCount}: Props) {
   return (
-    <div className="bg-slate-700 w-fit p-8 flex flex-col rounded-lg">
+    <div className="bg-slate-700 w-fit p-8 flex flex-col rounded-lg min-w-md">
       <div className="flex gap-4">
         <Image
           src="/icons/user.svg"

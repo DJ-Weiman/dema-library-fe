@@ -34,5 +34,12 @@ export const SignInSchema = z.object({
   password: z.string(),
 });
 
+export const backendErrorDataSchema = z.object({
+  message: z.string(),
+  status: z.number()
+});
+
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>
 export type SignInSchemaType = z.infer<typeof SignInSchema>
+export type BackendErrorData = z.infer<typeof backendErrorDataSchema>
+

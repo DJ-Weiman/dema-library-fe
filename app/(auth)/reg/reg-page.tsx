@@ -1,8 +1,9 @@
 "use client";
 
 import { useRegUser } from "@/hooks/useRegUser";
-import { SignUpSchema, SignUpSchemaType } from "@/types";
+import { backendErrorDataSchema, SignUpSchema, SignUpSchemaType } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -25,19 +26,20 @@ const RegistrationPage = (props: Props) => {
     },
   });
 
-  const { mutate, data, error } = useRegUser()
+  const { mutate, data, error } = useRegUser();
 
   const handleRegistration = (userData: SignUpSchemaType) => {
-
-    mutate(userData)
-
-    console.log("Checker : ")
-
-    
-    console.log(data)
-    console.log(error)
-
+    mutate(userData);
   };
+
+  function getErrorMessage(backendError: AxiosError): string{
+    console.log(backendError)
+    const parsedData = backendErrorDataSchema.safeParse(backendError.response?.data)
+    if(parsedData.success)
+      return parsedData.data.message
+    else
+      return "Error Encounted, Please Try Again!"
+  }
 
   return (
     <div className="bg-slate-800 flex flex-col min-w-lg gap-4 px-16 py-8 my-16 rounded-2xl">
@@ -56,9 +58,12 @@ const RegistrationPage = (props: Props) => {
       <p>Please complete all the fields below</p>
 
       <div>
+        {error && <p className="text-xl text-red-600">{getErrorMessage(error)}</p>}
+      </div>
+
+      <div>
         <form onSubmit={handleSubmit(handleRegistration)}>
           <div className="flex flex-col gap-6">
-
             <div className="flex flex-col gap-2">
               <label htmlFor="username">Username:</label>
               <input
@@ -68,7 +73,9 @@ const RegistrationPage = (props: Props) => {
                 type="text"
                 {...register("username")}
               />
-              {errors.username && <p className="text-red-600">{errors.username.message}</p>}
+              {errors.username && (
+                <p className="text-red-600">{errors.username.message}</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -92,7 +99,9 @@ const RegistrationPage = (props: Props) => {
                 type="password"
                 {...register("password")}
               />
-              {errors.password && <p className="text-red-600">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-red-600">{errors.password.message}</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -104,14 +113,26 @@ const RegistrationPage = (props: Props) => {
                 type="password"
                 {...register("confirmPassword")}
               />
-              {errors.confirmPassword && <p className="text-red-600">{errors.confirmPassword?.message}</p>}
+              {errors.confirmPassword && (
+                <p className="text-red-600">
+                  {errors.confirmPassword?.message}
+                </p>
+              )}
             </div>
 
-            <button type="submit" className="bg-overview-yellow rounded-md p-4 text-black font-bold">
+            <button
+              type="submit"
+              className="bg-overview-yellow rounded-md p-4 text-black font-bold"
+            >
               Sign Up
             </button>
 
-            <p className="text-center">Already have an account? <Link href='/sign-in' className="text-overview-yellow">Login</Link></p>
+            <p className="text-center">
+              Already have an account?{" "}
+              <Link href="/sign-in" className="text-overview-yellow">
+                Login
+              </Link>
+            </p>
           </div>
         </form>
       </div>

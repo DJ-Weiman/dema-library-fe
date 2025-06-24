@@ -1,9 +1,9 @@
 'use client'
 
-import axiosInstance from "@/app/api/api.js";
+import axiosInstance from "@/app/api/api";
 import { SignUpSchemaType } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { error } from "console";
+import { AxiosError } from "axios";
 
 export const useRegUser = () => {
     // const queryClient = useQueryClient();
@@ -11,13 +11,13 @@ export const useRegUser = () => {
     const {mutate, data, error} =  useMutation({
         mutationFn: async (formData: SignUpSchemaType) => {
             const res = await axiosInstance.post("/library/auth/registerUser", formData)
-            return res.data
+            return res
         },
         onSuccess: (data) => {
             console.log("Sign up successfull")
         }, 
-        onError: (error) => {
-            console.log("Error Signing up")
+        onError: (error: AxiosError) => {
+            error
         }
     })
 

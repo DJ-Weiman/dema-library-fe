@@ -6,16 +6,16 @@ import React from 'react'
 
 const Home = async () => {
 
-  const booksData = await getBooks()
+  const {books, numberOfPages} = await getBooks(1, 10)
 
   return (
     <div className='flex flex-col items-center'>
-      <BookOverview {...booksData[0]} />
+      <BookOverview {...books[0]} />
 
       <div className='mt-8'>
         <BookList
           title='Latest Books'
-          books={booksData} />
+          books={books} />
       </div>
     </div>
   )

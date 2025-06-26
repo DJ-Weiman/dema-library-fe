@@ -12,6 +12,12 @@ export const Book = z.object({
     summary: z.string()
 })
 
+export const BookPageResponse = z.object({
+  content: z.array(Book),
+  totalElements: z.number(),
+  totalPages: z.number()
+})
+
 export const SignUpSchema = z
   .object({
     username: z
@@ -55,6 +61,5 @@ export type SignUpSchemaType = z.infer<typeof SignUpSchema>
 export type SignInSchemaType = z.infer<typeof SignInSchema>
 export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>
 
-
-
 export type BookType = z.infer<typeof Book>
+export type BookPageResponseType = z.infer<typeof BookPageResponse>

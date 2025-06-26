@@ -1,14 +1,30 @@
-import { Book, BookType } from "./definitions";
+import { Book, BookType, BookPageResponse } from "./definitions";
 import axiosInstance from "./getAxiosInstance";
 
-export async function getBooks(): Promise<BookType[]> {
+export async function getBooks(
+  page: number,
+  size: number
+): Promise<{
+  books: BookType[];
+  numberOfPages: number;
+}> {
+  const params = new URLSearchParams();
+  params.set("page", page.toString());
+  params.set("size", size.toString());
+
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axiosInstance.get("/library/books");
-      const bookData = Book.array().safeParse(res.data);
+      const res = await axiosInstance.get(
+        `/library/books?${params.toString()}`
+      );
+      const bookPageData = BookPageResponse.safeParse(res.data);
 
-      if (bookData.success) resolve(bookData.data);
-      else reject(bookData.error);
+      if (bookPageData.success)
+        resolve({
+          books: bookPageData.data.content,
+          numberOfPages: bookPageData.data.totalPages,
+        });
+      else reject(bookPageData.error);
 
       resolve(res.data);
     } catch (error) {
@@ -19,7 +35,7 @@ export async function getBooks(): Promise<BookType[]> {
 
 export async function getBookForId(id: number): Promise<BookType | null> {
   return new Promise(async (resolve, reject) => {
-   try {
+    try {
       const res = await axiosInstance.get(`/library/books/${id}`);
       const parsedBook = Book.safeParse(res.data);
 

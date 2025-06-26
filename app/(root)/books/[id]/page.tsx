@@ -1,6 +1,7 @@
-import { getBookForId } from "@/app/api/api";
+
 import BookList from "@/components/BookList";
 import BookOverview from "@/components/BookOverview";
+import { getBookForId } from "@/lib/books";
 import { redirect } from "next/navigation";
 // import { useRouter } from "next/router";
 import React from "react";

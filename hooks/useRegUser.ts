@@ -1,7 +1,7 @@
 'use client'
 
-import axiosInstance from "@/app/api/api";
-import { SignUpSchemaType } from "@/types";
+import { SignUpSchemaType } from "@/lib/definitions";
+import axiosInstance from "@/lib/getAxiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios";
 

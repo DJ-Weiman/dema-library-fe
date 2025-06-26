@@ -1,7 +1,7 @@
 "use client";
 
 import { useRegUser } from "@/hooks/useRegUser";
-import { backendErrorDataSchema, SignUpSchema, SignUpSchemaType } from "@/types";
+import { BackendErrorDataSchema, SignUpSchema, SignUpSchemaType } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import Image from "next/image";
@@ -34,7 +34,7 @@ const RegistrationPage = (props: Props) => {
 
   function getErrorMessage(backendError: AxiosError): string{
     console.log(backendError)
-    const parsedData = backendErrorDataSchema.safeParse(backendError.response?.data)
+    const parsedData = BackendErrorDataSchema.safeParse(backendError.response?.data)
     if(parsedData.success)
       return parsedData.data.message
     else

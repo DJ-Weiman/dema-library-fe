@@ -3,8 +3,8 @@ import Link from "next/link";
 import React from "react";
 
 type Props = {
-  id: number;
-  coverUrl: string;
+  id: string;
+  coverUrl: string | null;
   title: string;
   genre: string;
 };
@@ -15,10 +15,10 @@ function BookItem({ id, coverUrl, title, genre }: Props) {
       <div className="relative max-w-40">
         <div className="relative w-40 h-50">
           <Image
-            src={coverUrl}
+            src='/icons/book.svg'
             alt="Book Cover"
             fill
-            className="rounded-sm object-cover"
+            className="rounded-sm object-cover invert"
           />
         </div>
 

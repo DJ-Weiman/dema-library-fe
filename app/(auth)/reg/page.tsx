@@ -8,8 +8,6 @@ type Props = {}
 const page = (props: Props) => {
     const queryClient = getQueryClient()
 
-    
-
     return (
         <HydrationBoundary>
             <RegistrationPage />

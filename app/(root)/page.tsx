@@ -1,19 +1,21 @@
 import BookList from '@/components/BookList'
 import BookOverview from '@/components/BookOverview'
-import { Button } from '@/components/ui/button'
-import { sampleBooks } from '@/constants'
+import { getBooks } from '@/lib/books'
 import React from 'react'
 
 
-const Home = () => {
+const Home = async () => {
+
+  const booksData = await getBooks()
+
   return (
     <div className='flex flex-col items-center'>
-      <BookOverview {...sampleBooks[0]} />
+      <BookOverview {...booksData[0]} />
 
       <div className='mt-8'>
         <BookList
           title='Latest Books'
-          books={sampleBooks} />
+          books={booksData} />
       </div>
     </div>
   )

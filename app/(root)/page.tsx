@@ -5,7 +5,6 @@ import React from 'react'
 
 
 const Home = async () => {
-
   const {books, numberOfPages} = await getBooks(1, 10)
 
   return (
@@ -15,6 +14,7 @@ const Home = async () => {
       <div className='mt-8'>
         <BookList
           title='Latest Books'
+          numberOfPages={numberOfPages}
           books={books} />
       </div>
     </div>

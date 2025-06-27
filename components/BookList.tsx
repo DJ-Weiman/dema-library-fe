@@ -5,10 +5,11 @@ import Pagination from "./Pagination";
 
 type Props = {
   title: string;
+  numberOfPages: number,
   books: BookType[];
 };
 
-const BookList = ({ title, books }: Props) => {
+const BookList = ({ title, books, numberOfPages }: Props) => {
   return (
     <section>
       <h2 className="font-bebas-neue text-4xl ">Popular books</h2>
@@ -23,7 +24,9 @@ const BookList = ({ title, books }: Props) => {
           />
         ))}
       </div>
-      <Pagination totalPages={5} />
+      <div className="text-end pt-8">
+        <Pagination totalPages={numberOfPages} />
+      </div>
     </section>
   );
 };

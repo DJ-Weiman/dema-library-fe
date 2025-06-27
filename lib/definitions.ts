@@ -52,6 +52,11 @@ export const SignInSchema = z.object({
   password: z.string(),
 });
 
+export const SignInResponseSchema = z.object({
+  username: z.string(),
+  token: z.string()
+})
+
 export const BackendErrorDataSchema = z.object({
   message: z.string(),
   status: z.number()
@@ -59,6 +64,7 @@ export const BackendErrorDataSchema = z.object({
 
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>
 export type SignInSchemaType = z.infer<typeof SignInSchema>
+export type SignInResponseSchemaType = z.infer<typeof SignInResponseSchema>
 export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>
 
 export type BookType = z.infer<typeof Book>

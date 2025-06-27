@@ -1,9 +1,16 @@
 "use client";
 
-import { SignInSchema, SignInSchemaType } from "@/types";
+import { useLoginUser } from "@/hooks/useLoginUser";
+import {
+  BackendErrorDataSchema,
+  SignInSchema,
+  SignInSchemaType,
+} from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -22,9 +29,25 @@ const page = (props: Props) => {
     },
   });
 
+  const { mutate, error, data } = useLoginUser();
+  const router = useRouter();
+
   const handleRegistration = (data: SignInSchemaType) => {
-    console.log(data);
+    mutate(data);
   };
+
+  if (data) {
+    localStorage.setItem("JWT_TOKEN", JSON.stringify(data.token))
+    router.push('/');
+  }
+
+  function getErrorMessage(backendError: AxiosError): string {
+    const parsedData = BackendErrorDataSchema.safeParse(
+      backendError.response?.data
+    );
+    if (parsedData.success) return parsedData.data.message;
+    else return "Error Encounted, Please Try Again!";
+  }
 
   return (
     <div className="bg-slate-800 flex flex-col min-w-lg gap-4 px-16 py-8 my-16 rounded-2xl">
@@ -41,6 +64,12 @@ const page = (props: Props) => {
 
       <h1 className="text-xl font-semibold">Welcome Back!</h1>
       <p>Log back into your account</p>
+
+      <div>
+        {error && (
+          <p className="text-xl text-red-600">{getErrorMessage(error)}</p>
+        )}
+      </div>
 
       <div>
         <form onSubmit={handleSubmit(handleRegistration)}>
@@ -60,12 +89,12 @@ const page = (props: Props) => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="password">Password:</label>
               <input
-                id="email"
+                id="passwrod"
                 className="bg-slate-700 rounded-md p-4"
-                placeholder="Enter your Email"
-                type="email"
+                placeholder="Enter your Password"
+                type="password"
                 {...register("password")}
               />
               {errors.password && (
@@ -91,6 +120,6 @@ const page = (props: Props) => {
       </div>
     </div>
   );
-}
+};
 
 export default page;

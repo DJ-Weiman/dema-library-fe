@@ -1,17 +1,20 @@
 "use client";
 
 import { useRegUser } from "@/hooks/useRegUser";
-import { BackendErrorDataSchema, SignUpSchema, SignUpSchemaType } from "@/lib/definitions";
+import {
+  BackendErrorDataSchema,
+  SignUpSchema,
+  SignUpSchemaType,
+} from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-type Props = {};
-
-const RegistrationPage = (props: Props) => {
+const RegistrationPage = () => {
   const {
     register,
     handleSubmit,
@@ -26,19 +29,22 @@ const RegistrationPage = (props: Props) => {
     },
   });
 
+  const router = useRouter();
   const { mutate, data, error } = useRegUser();
+
+  if (data) 
+    router.push('/sign-in')
 
   const handleRegistration = (userData: SignUpSchemaType) => {
     mutate(userData);
   };
 
-  function getErrorMessage(backendError: AxiosError): string{
-    console.log(backendError)
-    const parsedData = BackendErrorDataSchema.safeParse(backendError.response?.data)
-    if(parsedData.success)
-      return parsedData.data.message
-    else
-      return "Error Encounted, Please Try Again!"
+  function getErrorMessage(backendError: AxiosError): string {
+    const parsedData = BackendErrorDataSchema.safeParse(
+      backendError.response?.data
+    );
+    if (parsedData.success) return parsedData.data.message;
+    else return "Error Encounted, Please Try Again!";
   }
 
   return (
@@ -58,7 +64,9 @@ const RegistrationPage = (props: Props) => {
       <p>Please complete all the fields below</p>
 
       <div>
-        {error && <p className="text-xl text-red-600">{getErrorMessage(error)}</p>}
+        {error && (
+          <p className="text-xl text-red-600">{getErrorMessage(error)}</p>
+        )}
       </div>
 
       <div>

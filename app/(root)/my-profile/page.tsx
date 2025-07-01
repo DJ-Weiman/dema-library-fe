@@ -8,21 +8,18 @@ import React, { useEffect } from "react";
 const page = () => {
   const { data, error } = useGetUserDetails();
 
-    console.log("Checker _____");
-    console.log(data);
-    console.log(error);
-
   return (
     <div className="flex grow-0 gap-16 justify-between">
       <div className="self-start min-w-md">
         <ProfileCard
-          username="DionJW"
-          email="djw@gmail.com"
-          registeredDate="10/04/2024"
-          pastBorrowCount={5}
-          currentBorrowCount={2}
-          remainingBorrowCount={4}
+          username={data?.name || "_"}
+          email={data?.email || "_"}
+          registeredDate={data?.registered_date || "_"}
+          pastBorrowCount={data?.past_borrow_count || 0}
+          currentBorrowCount={data?.current_borrow_count || 0}
+          remainingBorrowCount={data?.remaining_borrow_count || 0}
         />
+
       </div>
       <div>
         <h2>Borrowed books</h2>

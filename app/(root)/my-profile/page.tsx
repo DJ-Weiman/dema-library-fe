@@ -1,14 +1,20 @@
+"use client";
+
 import BorrowedBook from "@/components/BorrowedBook";
 import ProfileCard from "@/components/ProfileCard";
-import React from "react";
+import { useGetUserDetails } from "@/hooks/useGetUserDetails";
+import React, { useEffect } from "react";
 
-type Props = {};
+const page = () => {
+  const { data, error } = useGetUserDetails();
 
-const page = (props: Props) => {
+    console.log("Checker _____");
+    console.log(data);
+    console.log(error);
+
   return (
     <div className="flex grow-0 gap-16 justify-between">
-      <div
-        className="self-start min-w-md">
+      <div className="self-start min-w-md">
         <ProfileCard
           username="DionJW"
           email="djw@gmail.com"

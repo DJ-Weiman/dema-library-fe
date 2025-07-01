@@ -1,22 +1,22 @@
 import { z } from "zod";
 
 export const Book = z.object({
-    id: z.string(),
-    title: z.string(),
-    author: z.string(),
-    genre: z.string(),
-    rating: z.number(),
-    total_copies: z.number(),
-    available_copies: z.number(),
-    coverUrl: z.nullable(z.string()),
-    summary: z.string()
-})
+  id: z.string(),
+  title: z.string(),
+  author: z.string(),
+  genre: z.string(),
+  rating: z.number(),
+  total_copies: z.number(),
+  available_copies: z.number(),
+  coverUrl: z.nullable(z.string()),
+  summary: z.string(),
+});
 
 export const BookPageResponse = z.object({
   content: z.array(Book),
   totalElements: z.number(),
-  totalPages: z.number()
-})
+  totalPages: z.number(),
+});
 
 export const SignUpSchema = z
   .object({
@@ -49,25 +49,37 @@ export const SignInSchema = z.object({
     .max(15, {
       message: "username cannot be longer than 15 characters",
     }),
-  password: z.string()
-      .min(8, { message: "Password is too short" })
-      .max(20, { message: "Password is too long" }),
+  password: z
+    .string()
+    .min(8, { message: "Password is too short" })
+    .max(20, { message: "Password is too long" }),
 });
 
 export const SignInResponseSchema = z.object({
   username: z.string(),
-  token: z.string()
-})
+  token: z.string(),
+});
 
 export const BackendErrorDataSchema = z.object({
   message: z.string(),
-  status: z.number()
+  status: z.number(),
 });
 
-export type SignUpSchemaType = z.infer<typeof SignUpSchema>
-export type SignInSchemaType = z.infer<typeof SignInSchema>
-export type SignInResponseSchemaType = z.infer<typeof SignInResponseSchema>
-export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>
+export const userDetailsResponse = z.object({
+  name: z.string(),
+  email: z.string().email("Invalid email format"), 
+  registered_date: z.string(),
+  current_borrow_count: z.number().int().nonnegative(), 
+  past_borrow_count: z.number().int().nonnegative(),
+  remaining_borrow_count: z.number().int().nonnegative(),
+});
 
-export type BookType = z.infer<typeof Book>
-export type BookPageResponseType = z.infer<typeof BookPageResponse>
+export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
+export type SignInSchemaType = z.infer<typeof SignInSchema>;
+export type SignInResponseSchemaType = z.infer<typeof SignInResponseSchema>;
+export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>;
+
+export type BookType = z.infer<typeof Book>;
+export type BookPageResponseType = z.infer<typeof BookPageResponse>;
+
+export type UserDetailsResponseType = z.infer<typeof userDetailsResponse>

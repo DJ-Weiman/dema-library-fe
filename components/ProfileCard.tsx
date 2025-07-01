@@ -1,19 +1,40 @@
+'use client'
+
+import userDetailsStore from "@/lib/store";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = {
-  username: string,
-  email: string,
-  registeredDate: string,
-  pastBorrowCount: number,
-  currentBorrowCount: number,
-  remainingBorrowCount: number
+  username: string;
+  email: string;
+  registeredDate: string;
+  pastBorrowCount: number;
+  currentBorrowCount: number;
+  remainingBorrowCount: number;
 };
 
-function ProfileCard({username, email, registeredDate, pastBorrowCount, currentBorrowCount, remainingBorrowCount}: Props) {
+function ProfileCard({
+  username,
+  email,
+  registeredDate,
+  pastBorrowCount,
+  currentBorrowCount,
+  remainingBorrowCount,
+}: Props) {
+
+  const {setToken, setUsername} = userDetailsStore()
+  const router = useRouter()
+
+  function signOutUser(){
+    setToken("")
+    setUsername("")
+    router.push('/');
+  }
+
   return (
     <div className="bg-slate-700 w-fit p-8 flex flex-col rounded-lg min-w-md">
-      <div className="flex gap-4">
+      <div className="flex gap-4 ">
         <Image
           src="/icons/user.svg"
           alt="user profile Icon"
@@ -22,8 +43,18 @@ function ProfileCard({username, email, registeredDate, pastBorrowCount, currentB
           className="rounded-full invert"
         />
         <div className="flex flex-col">
-            <p>{username}</p>
-            <p>{email}</p>
+          <p>{username}</p>
+          <p>{email}</p>
+        </div>
+
+        <div className="flex flex-grow-1 items-center justify-end">
+          <button
+            type="submit"
+            className="bg-red-400 rounded-md font-bold px-4 py-2 cursor-pointer"
+            onClick={() => signOutUser()}
+          >
+            Log out
+          </button>
         </div>
       </div>
 

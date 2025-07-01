@@ -13,7 +13,6 @@ export const useLoginUser = () => {
       const res = await axiosInstance.post("/library/auth/login", formData);
       const parsedData = SignInResponseSchema.safeParse(res.data);
       if (parsedData.success) {
-        console.log(parsedData.data);
         return parsedData.data;
       } 
     },

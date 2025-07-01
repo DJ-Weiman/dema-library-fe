@@ -49,7 +49,9 @@ export const SignInSchema = z.object({
     .max(15, {
       message: "username cannot be longer than 15 characters",
     }),
-  password: z.string(),
+  password: z.string()
+      .min(8, { message: "Password is too short" })
+      .max(20, { message: "Password is too long" }),
 });
 
 export const SignInResponseSchema = z.object({

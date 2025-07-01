@@ -6,12 +6,14 @@ import {
   SignInSchema,
   SignInSchemaType,
 } from "@/lib/definitions";
+import userDetailsStore from "@/lib/store";
+import useUserTokenStore from "@/lib/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type Props = {};
@@ -31,15 +33,19 @@ const page = (props: Props) => {
 
   const { mutate, error, data } = useLoginUser();
   const router = useRouter();
+  const { setToken, setUsername } = userDetailsStore();
 
   const handleRegistration = (data: SignInSchemaType) => {
     mutate(data);
   };
 
-  if (data) {
-    localStorage.setItem("JWT_TOKEN", JSON.stringify(data.token))
-    router.push('/');
-  }
+  useEffect(() => {
+    if (data) {
+      setToken(data.token);
+      setUsername(data.username);
+      router.push("/");
+    }
+  }, [data]);
 
   function getErrorMessage(backendError: AxiosError): string {
     const parsedData = BackendErrorDataSchema.safeParse(

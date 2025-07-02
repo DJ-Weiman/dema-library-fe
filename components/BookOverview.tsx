@@ -2,10 +2,11 @@ import { BookType } from '@/lib/definitions'
 import Image from 'next/image'
 import React from 'react'
 import { Button } from './ui/button'
+import BorrowBookButton from './BorrowBookButton'
 
 type Props = BookType
 
-function BookOverview({ title, author, genre, rating, total_copies, available_copies, summary }: Props) {
+function BookOverview({id, title, author, genre, rating, total_copies, available_copies, summary }: Props) {
     return (
         <section className=' text-slate-50 max-w-4xl'>
             <div className='flex flex-1 flex-col'>
@@ -38,11 +39,8 @@ function BookOverview({ title, author, genre, rating, total_copies, available_co
                             </p>
 
                             <p className='book-description'>{summary}</p>
-                            <Button className='bg-overview-yellow flex items-center p-6 rounded-sm'>
-                                <Image src='/icons/book.svg' alt='book' width={20} height={20} />
-                                <p className='font-bebas-neue text-xl text-black'>Borrow</p>
-                            </Button>
 
+                            <BorrowBookButton bookID={id} />
                         </div>
                     </div>
 

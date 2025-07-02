@@ -2,16 +2,15 @@
 
 import { useRegUser } from "@/hooks/useRegUser";
 import {
-  BackendErrorDataSchema,
   SignUpSchema,
   SignUpSchemaType,
 } from "@/lib/definitions";
+import { getErrorMessage } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const RegistrationPage = () => {
@@ -32,20 +31,13 @@ const RegistrationPage = () => {
   const router = useRouter();
   const { mutate, data, error } = useRegUser();
 
-  if (data) 
-    router.push('/sign-in')
-
   const handleRegistration = (userData: SignUpSchemaType) => {
     mutate(userData);
   };
 
-  function getErrorMessage(backendError: AxiosError): string {
-    const parsedData = BackendErrorDataSchema.safeParse(
-      backendError.response?.data
-    );
-    if (parsedData.success) return parsedData.data.message;
-    else return "Error Encounted, Please Try Again!";
-  }
+  useEffect(() => {
+    if (data) router.push("/sign-in");
+  }, [data]);
 
   return (
     <div className="bg-slate-800 flex flex-col min-w-lg gap-4 px-16 py-8 my-16 rounded-2xl">

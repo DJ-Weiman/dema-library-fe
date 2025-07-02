@@ -18,6 +18,14 @@ export const BookPageResponse = z.object({
   totalPages: z.number(),
 });
 
+export const BorrowingSucessResponse = z.object({
+  status: z.string(),
+  bookTitle: z.string(),
+  authorName: z.string(),
+  borrowedAt: z.string(),
+  returnDate: z.string()
+})
+
 export const SignUpSchema = z
   .object({
     username: z
@@ -81,5 +89,6 @@ export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>;
 
 export type BookType = z.infer<typeof Book>;
 export type BookPageResponseType = z.infer<typeof BookPageResponse>;
+export type BorrowingSucessResponseType = z.infer<typeof BorrowingSucessResponse>
 
 export type UserDetailsResponseType = z.infer<typeof userDetailsResponse>

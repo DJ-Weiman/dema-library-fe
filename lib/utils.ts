@@ -1,5 +1,7 @@
+import { AxiosError } from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { BackendErrorDataSchema } from "./definitions";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,3 +30,11 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     totalPages,
   ];
 };
+
+export function getErrorMessage(backendError: AxiosError): string {
+    const parsedData = BackendErrorDataSchema.safeParse(
+      backendError.response?.data
+    );
+    if (parsedData.success) return parsedData.data.message;
+    else return "Error Encounted, Please Try Again!";
+  }

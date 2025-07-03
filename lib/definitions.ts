@@ -23,8 +23,8 @@ export const BorrowingSucessResponse = z.object({
   bookTitle: z.string(),
   authorName: z.string(),
   borrowedAt: z.string(),
-  returnDate: z.string()
-})
+  returnDate: z.string(),
+});
 
 export const SignUpSchema = z
   .object({
@@ -75,12 +75,24 @@ export const BackendErrorDataSchema = z.object({
 
 export const userDetailsResponse = z.object({
   name: z.string(),
-  email: z.string().email("Invalid email format"), 
+  email: z.string().email("Invalid email format"),
   registered_date: z.string(),
-  current_borrow_count: z.number().int().nonnegative(), 
+  current_borrow_count: z.number().int().nonnegative(),
   past_borrow_count: z.number().int().nonnegative(),
   remaining_borrow_count: z.number().int().nonnegative(),
 });
+
+export const PastBorrowingSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  author: z.string(),
+  coverUrl: z.nullable(z.string()),
+  borrowed_at: z.string(),
+  return_date: z.string(),
+  returned_at: z.nullable(z.string()),
+});
+
+export type BorrowingState = "Current" | "Returned" | "Late" | "unknown";
 
 export type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 export type SignInSchemaType = z.infer<typeof SignInSchema>;
@@ -89,6 +101,9 @@ export type BackendErrorData = z.infer<typeof BackendErrorDataSchema>;
 
 export type BookType = z.infer<typeof Book>;
 export type BookPageResponseType = z.infer<typeof BookPageResponse>;
-export type BorrowingSucessResponseType = z.infer<typeof BorrowingSucessResponse>
+export type BorrowingSucessResponseType = z.infer<
+  typeof BorrowingSucessResponse
+>;
 
-export type UserDetailsResponseType = z.infer<typeof userDetailsResponse>
+export type UserDetailsResponseType = z.infer<typeof userDetailsResponse>;
+export type PastBorrowingSchemaType = z.infer<typeof PastBorrowingSchema>;

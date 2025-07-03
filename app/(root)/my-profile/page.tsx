@@ -2,32 +2,45 @@
 
 import BorrowedBook from "@/components/BorrowedBook";
 import ProfileCard from "@/components/ProfileCard";
+import { useGetPastBorrowings } from "@/hooks/useGetPastBorrowings";
 import { useGetUserDetails } from "@/hooks/useGetUserDetails";
-import React, { useEffect } from "react";
+import { PastBorrowingSchemaType } from "@/lib/definitions";
+import React, { ReactNode, useEffect } from "react";
 
 const page = () => {
-  const { data, error } = useGetUserDetails();
+  const { data: userDetails, error: userError } = useGetUserDetails();
+  const { data: borrowingData, error: borrowingError } = useGetPastBorrowings();
+
+  function getBorrowingBookEls(
+    borrowingData: PastBorrowingSchemaType[]
+  ): ReactNode {
+    if (borrowingData.length > 0) {
+      return borrowingData.map((borrowing) => (
+        <BorrowedBook key={borrowing.id} {...borrowing} />
+      ));
+    } else {
+      return <p>No Data</p>;
+    }
+  }
 
   return (
-    <div className="flex grow-0 gap-16 justify-between">
-      <div className="self-start min-w-md">
-        <ProfileCard
-          username={data?.name || "_"}
-          email={data?.email || "_"}
-          registeredDate={data?.registered_date || "_"}
-          pastBorrowCount={data?.past_borrow_count || 0}
-          currentBorrowCount={data?.current_borrow_count || 0}
-          remainingBorrowCount={data?.remaining_borrow_count || 0}
-        />
-
+    <div className="flex gap-16 justify-between">
+      <div className="flex justify-center flex-row flex-grow-1">
+        <div className="min-w-md">
+          <ProfileCard
+            username={userDetails?.name || "_"}
+            email={userDetails?.email || "_"}
+            registeredDate={userDetails?.registered_date || "_"}
+            pastBorrowCount={userDetails?.past_borrow_count || 0}
+            currentBorrowCount={userDetails?.current_borrow_count || 0}
+            remainingBorrowCount={userDetails?.remaining_borrow_count || 0}
+          />
+        </div>
       </div>
-      <div>
-        <h2>Borrowed books</h2>
+      <div className="flex-grow-1">
+        <h2 className="font-bold text-3xl">Borrowed books</h2>
         <div className="mt-8 flex flex-wrap gap-8">
-          <BorrowedBook />
-          <BorrowedBook />
-          <BorrowedBook />
-          <BorrowedBook />
+          {borrowingData && getBorrowingBookEls(borrowingData)}
         </div>
       </div>
     </div>

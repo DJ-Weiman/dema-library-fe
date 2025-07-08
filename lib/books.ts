@@ -36,7 +36,7 @@ export async function getBooks(
 export async function getBookForId(id: number): Promise<BookType | null> {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axiosInstance.get(`/library/books/${id}`);
+      const res = await axiosInstance.get(`/library/books/id/${id}`);
       const parsedBook = Book.safeParse(res.data);
 
       if (parsedBook.success) resolve(parsedBook.data);

@@ -42,7 +42,7 @@ const Header = (props: Props) => {
         </li>
         <li>
           <Link
-            href="/search"
+            href="/books/search"
             className={cn(
               "text-slate-100 cursor-pointer capitalize",
               pathName === "/library" ? "text-blue-400" : null

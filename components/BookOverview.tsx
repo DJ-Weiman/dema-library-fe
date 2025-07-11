@@ -5,7 +5,7 @@ import BorrowBookButton from './BorrowBookButton'
 
 type Props = BookType
 
-function BookOverview({id, title, author, genre, rating, total_copies, available_copies, summary }: Props) {
+function BookOverview({id, title, author, genre, rating, total_copies, available_copies, summary, coverUrl }: Props) {
     return (
         <section className=' text-slate-50 max-w-4xl'>
             <div className='flex flex-1 flex-col'>
@@ -45,7 +45,7 @@ function BookOverview({id, title, author, genre, rating, total_copies, available
 
                     <div className='ml-10 basis-1 grow-2 flex justify-center items-center'>
                         <Image
-                            src='/icons/book.svg'
+                            src={coverUrl ? coverUrl : '/icons/book.svg'}
                             alt="Book Cover"
                             height={300}
                             width={200}

@@ -1,4 +1,4 @@
-import { Book, BookType } from "@/lib/definitions";
+import { BookType } from "@/lib/definitions";
 import React from "react";
 import BookItem from "./BookItem";
 import Pagination from "./Pagination";
@@ -9,7 +9,7 @@ type Props = {
   books: BookType[];
 };
 
-const BookList = ({ title, books, numberOfPages }: Props) => {
+const BookList = ({ books, numberOfPages }: Props) => {
   return (
     <section>
       <h2 className="font-bebas-neue text-4xl ">Popular books</h2>

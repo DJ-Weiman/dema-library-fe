@@ -1,13 +1,11 @@
 'use client'
 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { URLSearchParams } from "url";
 
-type Props = {};
 
-const Search = (props: Props) => {
+const Search = () => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const { replace } = useRouter();

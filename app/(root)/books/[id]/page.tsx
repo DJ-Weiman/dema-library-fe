@@ -1,5 +1,4 @@
 
-import BookList from "@/components/BookList";
 import BookOverview from "@/components/BookOverview";
 import { getBookForId } from "@/lib/books";
 import { redirect } from "next/navigation";

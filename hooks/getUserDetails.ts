@@ -3,7 +3,7 @@ import axiosInstance from "@/lib/getAxiosInstance";
 import userDetailsStore from "@/lib/store";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetUserDetails = () => {
+export const getUserDetails = () => {
   const { token, username } = userDetailsStore();
   const { data, error } = useQuery({
     queryKey: ["user_details"],

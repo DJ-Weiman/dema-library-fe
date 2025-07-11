@@ -1,17 +1,14 @@
 "use client";
 
-import useUserTokenStore from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { Button } from "./ui/button";
 import userDetailsStore from "@/lib/store";
 
-type Props = {};
 
-const Header = (props: Props) => {
+const Header = () => {
   const pathName: string = usePathname();
   const { token, username } = userDetailsStore();
 

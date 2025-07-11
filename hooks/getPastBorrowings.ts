@@ -4,7 +4,7 @@ import userDetailsStore from "@/lib/store";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 
-export const useGetPastBorrowings = () => {
+export const getPastBorrowings = () => {
   const { token } = userDetailsStore();
   const { data, error } = useQuery({
     queryKey: ["past_borrowings"],

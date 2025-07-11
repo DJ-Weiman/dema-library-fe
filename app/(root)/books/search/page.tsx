@@ -11,9 +11,9 @@ type Props = {
 
 const page = async (props: Props) => {
   const searchParams = await props.searchParams;
-  const query = searchParams?.query || "";
+  // const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
-  const {books, numberOfPages} = await getBooks(currentPage, 5)
+  const {books} = await getBooks(currentPage, 5)
 
   console.log(books)
 

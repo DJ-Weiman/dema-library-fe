@@ -7,7 +7,6 @@ import {
   SignInSchemaType,
 } from "@/lib/definitions";
 import userDetailsStore from "@/lib/store";
-import useUserTokenStore from "@/lib/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import Image from "next/image";
@@ -16,9 +15,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-type Props = {};
 
-const page = (props: Props) => {
+const Page = () => {
   const {
     register,
     handleSubmit,
@@ -116,8 +114,8 @@ const page = (props: Props) => {
             </button>
 
             <p className="text-center">
-              Don't have an account?{" "}
-              <Link href="/reg" className="text-overview-yellow">
+              Don&apos;t have an account?&nbsp;
+               <Link href="/reg" className="text-overview-yellow">
                 Sign Up
               </Link>
             </p>
@@ -128,4 +126,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

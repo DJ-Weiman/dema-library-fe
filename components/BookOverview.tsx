@@ -1,7 +1,6 @@
 import { BookType } from '@/lib/definitions'
 import Image from 'next/image'
 import React from 'react'
-import { Button } from './ui/button'
 import BorrowBookButton from './BorrowBookButton'
 
 type Props = BookType

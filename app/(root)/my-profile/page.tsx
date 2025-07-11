@@ -2,14 +2,14 @@
 
 import BorrowedBook from "@/components/BorrowedBook";
 import ProfileCard from "@/components/ProfileCard";
-import { useGetPastBorrowings } from "@/hooks/useGetPastBorrowings";
-import { useGetUserDetails } from "@/hooks/useGetUserDetails";
+import { getPastBorrowings } from "@/hooks/getPastBorrowings";
+import { getUserDetails } from "@/hooks/getUserDetails";
 import { PastBorrowingSchemaType } from "@/lib/definitions";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 
 const page = () => {
-  const { data: userDetails, error: userError } = useGetUserDetails();
-  const { data: borrowingData, error: borrowingError } = useGetPastBorrowings();
+  const { data: userDetails } = getUserDetails();
+  const { data: borrowingData } = getPastBorrowings();
 
   function getBorrowingBookEls(
     borrowingData: PastBorrowingSchemaType[]

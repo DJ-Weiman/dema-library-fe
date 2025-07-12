@@ -7,6 +7,7 @@ import { useBorrowBook } from "@/hooks/useBorrowBook";
 import { getErrorMessage } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { BorrowingSucessResponse } from "@/lib/definitions";
+import userDetailsStore from "@/lib/store";
 
 type Props = {
   bookID: string;
@@ -14,9 +15,13 @@ type Props = {
 
 const BorrowBookButton = ({ bookID }: Props) => {
   const { mutate, data, error } = useBorrowBook();
+  const { token } = userDetailsStore();
 
   function handleBorrowBook() {
-    mutate({ book_id: bookID });
+    if(token === "")
+      toast.error("Please Login First")
+    else
+      mutate({ book_id: bookID });
   }
 
   useEffect(() => {
@@ -33,6 +38,9 @@ const BorrowBookButton = ({ bookID }: Props) => {
       }
     }
   }, [data, error]);
+
+  console.log("TOken checker")
+  console.log(token)
 
   return (
     <Button

@@ -15,7 +15,7 @@ const Home = async (props: { searchParams?: Promise<{ page?: string }> }) => {
 
       <div className='mt-8'>
         <BookList
-          title='Latest Books'
+          title="Popular Books"
           numberOfPages={numberOfPages}
           books={books} />
       </div>

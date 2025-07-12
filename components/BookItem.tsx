@@ -5,11 +5,12 @@ import React from "react";
 type Props = {
   id: string;
   coverUrl: string | null;
+  author: string;
   title: string;
   genre: string;
 };
 
-function BookItem({ id, coverUrl, title, genre }: Props) {
+function BookItem({ id, coverUrl, title, author, genre }: Props) {
   return (
     <Link href={`/books/${id}`}>
       <div className="relative max-w-40">
@@ -31,8 +32,9 @@ function BookItem({ id, coverUrl, title, genre }: Props) {
           }
         </div>
 
-        <div className="flex flex-col gap-2 mt-2">
-          <p className="text-sm font-bold">{title}</p>
+        <div className="flex flex-col gap-1 mt-2">
+          <p className="text-md font-bold">{title}</p>
+          <p className="text-sm font-light">{author}</p>
           <p className="text-xs font-light text-slate-400">{genre}</p>
         </div>
       </div>

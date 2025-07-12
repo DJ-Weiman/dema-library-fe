@@ -1,5 +1,6 @@
+import BookList from "@/components/BookList";
 import Search from "@/components/Search";
-import { getBooks } from "@/lib/books";
+import { getBooksForSearch } from "@/lib/books";
 import React from "react";
 
 type Props = {
@@ -11,18 +12,24 @@ type Props = {
 
 const page = async (props: Props) => {
   const searchParams = await props.searchParams;
-  // const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const {books} = await getBooks(currentPage, 5)
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 0;
+  const { books, numberOfPages } = await getBooksForSearch(query, currentPage, 10)
 
-  console.log(books)
+
+  console.log(query)
 
   return (
-    <div>
-      <h1>Find your next read!</h1>
-      <h2>Search our vast library for the book of yor</h2>
-      <Search />
+    <div className="flex flex-col items-center gap-12">
+      <div className="flex flex-col items-center gap-4 max-w-md">
+        <h1 className="text-md">Find your next read!</h1>
+        <h2 className="text-3xl font-bold text-center">Search Our <span className="text-overview-yellow">Vast Library</span> For The Book Of Your Choice</h2>
+        <Search />
+      </div>
+
+      <BookList title="Search Results" books={books} numberOfPages={numberOfPages} />
     </div>
+
   );
 };
 

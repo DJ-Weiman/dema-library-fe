@@ -37,7 +37,7 @@ const Header = () => {
             Home
           </Link>
         </li>
-        {/* <li>
+        <li>
           <Link
             href="/books/search"
             className={cn(
@@ -47,7 +47,7 @@ const Header = () => {
           >
             Search
           </Link>
-        </li> */}
+        </li>
         <li>
           {token ? (
             <Link href="/my-profile">

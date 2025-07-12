@@ -4,22 +4,23 @@ import BookItem from "./BookItem";
 import Pagination from "./Pagination";
 
 type Props = {
-  title: string;
+  title: String,
   numberOfPages: number,
   books: BookType[];
 };
 
-const BookList = ({ books, numberOfPages }: Props) => {
+const BookList = ({ title, books, numberOfPages }: Props) => {
   return (
     <section>
-      <h2 className="font-bebas-neue text-4xl ">Popular books</h2>
-      <div className="mt-8 flex gap-4 flex-wrap">
+      <h2 className="font-bebas-neue text-4xl ">{title}</h2>
+      <div className="mt-8 flex gap-4 flex-wrap justify-between">
         {books.map((book) => (
           <BookItem
             key={book.id}
             id={book.id}
             coverUrl={book.coverUrl}
             title={book.title}
+            author={book.author}
             genre={book.genre}
           />
         ))}

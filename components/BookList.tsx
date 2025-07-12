@@ -4,7 +4,7 @@ import BookItem from "./BookItem";
 import Pagination from "./Pagination";
 
 type Props = {
-  title: String,
+  title: string,
   numberOfPages: number,
   books: BookType[];
 };

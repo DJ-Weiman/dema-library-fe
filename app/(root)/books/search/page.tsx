@@ -1,6 +1,6 @@
 import BookList from "@/components/BookList";
 import Search from "@/components/Search";
-import { getBooks, getBooksForSearch } from "@/lib/books";
+import { getBooksForSearch } from "@/lib/books";
 import React from "react";
 
 type Props = {
